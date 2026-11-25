@@ -1,0 +1,39 @@
+
+=== 2B ===
+accuracy: {'RAG16': '37/150', 'RAG128': '45/150', 'ICA': '40/150', 'Agent': '40/150'}
+  Agent vs ICA: wins 7, losses 7, McNemar exact p = 1.0000
+  Agent vs RAG128: wins 3, losses 8, McNemar exact p = 0.2266
+  Agent vs RAG16: wins 10, losses 7, McNemar exact p = 0.6291
+  ICA vs RAG16: wins 13, losses 10, McNemar exact p = 0.6776
+  RAG128 vs ICA: wins 9, losses 4, McNemar exact p = 0.2668
+  agent: mean turns 15.7 (max 100), forced finish 0/150, no search/step reads 28/150
+  tool calls per problem: {'finish': 6.69, 'get_answer': 1.49, 'get_reasoning_step': 0.95, 'get_solution_summary': 3.65, 'search_solution': 2.85}
+  none-correct problems 88: >=1 unfinished 6, all 8 unfinished 0
+  agent solved 0 of them; of those >=1 unfinished 0, all unfinished 0
+  candidates without a final answer: 13/1200
+
+=== 4B ===
+accuracy: {'RAG16': '83/150', 'RAG128': '111/150', 'ICA': '113/150', 'Agent': '123/150'}
+  Agent vs ICA: wins 13, losses 3, McNemar exact p = 0.0213
+  Agent vs RAG128: wins 13, losses 1, McNemar exact p = 0.0018
+  Agent vs RAG16: wins 41, losses 1, McNemar exact p = 0.0000
+  ICA vs RAG16: wins 34, losses 4, McNemar exact p = 0.0000
+  RAG128 vs ICA: wins 6, losses 8, McNemar exact p = 0.7905
+  agent: mean turns 11.3 (max 33), forced finish 0/150, no search/step reads 61/150
+  tool calls per problem: {'finish': 1.64, 'get_answer': 0.95, 'get_reasoning_step': 1.25, 'get_solution_summary': 5.33, 'search_solution': 2.13}
+  none-correct problems 52: >=1 unfinished 52, all 8 unfinished 52
+  agent solved 26 of them; of those >=1 unfinished 26, all unfinished 26
+  candidates without a final answer: 724/1200
+
+=== 9B ===
+accuracy: {'RAG16': '105/150', 'RAG128': '122/150', 'ICA': '120/150', 'Agent': '134/150'}
+  Agent vs ICA: wins 15, losses 1, McNemar exact p = 0.0005
+  Agent vs RAG128: wins 12, losses 0, McNemar exact p = 0.0005
+  Agent vs RAG16: wins 29, losses 0, McNemar exact p = 0.0000
+  ICA vs RAG16: wins 15, losses 0, McNemar exact p = 0.0001
+  RAG128 vs ICA: wins 8, losses 6, McNemar exact p = 0.7905
+  agent: mean turns 12.2 (max 37), forced finish 0/150, no search/step reads 47/150
+  tool calls per problem: {'finish': 1.07, 'get_answer': 0.94, 'get_reasoning_step': 1.92, 'get_solution_summary': 6.01, 'search_solution': 2.27}
+  none-correct problems 41: >=1 unfinished 41, all 8 unfinished 40
+  agent solved 25 of them; of those >=1 unfinished 25, all unfinished 25
+  candidates without a final answer: 620/1200

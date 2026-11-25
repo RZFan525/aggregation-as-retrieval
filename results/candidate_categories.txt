@@ -1,0 +1,21 @@
+
+2B: problems per category {'all8': 7, 'mixed': 55, 'none': 88}
+  RAG m=4    total  34/150  all8   7/7  mixed  27/55  none   0/88
+  RAG m=16   total  37/150  all8   7/7  mixed  29/55  none   1/88
+  RAG m=128  total  45/150  all8   7/7  mixed  38/55  none   0/88
+  ICA        total  40/150  all8   7/7  mixed  32/55  none   1/88
+  Agentic    total  40/150  all8   7/7  mixed  33/55  none   0/88
+
+4B: problems per category {'all8': 38, 'mixed': 60, 'none': 52}
+  RAG m=4    total  58/150  all8  36/38  mixed  21/60  none   1/52
+  RAG m=16   total  83/150  all8  38/38  mixed  42/60  none   3/52
+  RAG m=128  total 111/150  all8  38/38  mixed  57/60  none  16/52
+  ICA        total 113/150  all8  37/38  mixed  56/60  none  20/52
+  Agentic    total 123/150  all8  38/38  mixed  59/60  none  26/52
+
+9B: problems per category {'all8': 48, 'mixed': 61, 'none': 41}
+  RAG m=4    total  80/150  all8  47/48  mixed  32/61  none   1/41
+  RAG m=16   total 105/150  all8  48/48  mixed  54/61  none   3/41
+  RAG m=128  total 122/150  all8  48/48  mixed  61/61  none  13/41
+  ICA        total 120/150  all8  48/48  mixed  59/61  none  13/41
+  Agentic    total 134/150  all8  48/48  mixed  61/61  none  25/41

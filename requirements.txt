@@ -1,0 +1,17 @@
+# AggMath dependencies for serve + rollout + aggregation (no training).
+#
+# vLLM is installed separately via the nightly wheel index — see README.
+# This file covers everything layered on top of vLLM's environment.
+
+# --- rollout ---
+datasets>=2.19            # HuggingFace benchmark loading (aime*, hmmt*, longcot)
+tqdm>=4.66                # rollout progress bars (optional import, hard dep for vendor core)
+
+# --- evaluation ---
+math-verify>=0.5.2        # HuggingFace math-verify, used to grade rollouts (pass@k)
+
+# --- aggregation (vendor/aggagent_core) ---
+litellm>=1.52             # unified LLM client used by AggAgent + aggregation strategies
+tenacity>=8.2.3           # retry/backoff dependency imported by LiteLLM at runtime
+rouge-score>=0.1.2        # ROUGE-L recall used by aggagent_core.tools
+bm25s>=0.3.8              # BM25 lexical search backend for global search_solution

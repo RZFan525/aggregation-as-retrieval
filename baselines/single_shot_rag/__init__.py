@@ -1,0 +1,1 @@
+"""Single-shot RAG baseline."""
