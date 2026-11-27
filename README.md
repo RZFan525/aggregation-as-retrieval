@@ -5,14 +5,22 @@ Retrieval: Aggregating Long Chain-of-Thought Math Solutions Beyond the Context
 Window**, by Run-Ze Fan, Chanwoong Yoon, Wuao Liu, Shuyan Huang, and Hyungji Kim.
 
 A solver samples eight long chain-of-thought solutions per problem, and the same
-model then aggregates them. We compare three ways to read the candidates, all on
-the same saved inputs:
+model then aggregates them. We propose **Agentic Aggregation**, which reads the
+candidates through tools instead of placing them in its prompt, and compare it
+with two other ways to read the candidates, all on the same saved inputs:
 
 | Method | What the aggregator reads |
 |---|---|
 | In-context aggregation (ICA) | all eight traces in one prompt, truncated to fit the context |
 | Single-shot RAG | the top-*m* steps of the candidates, retrieved once with the problem as the query (BM25 or Qwen3-Embedding-8B) |
-| Agentic retrieval-based aggregation | only what it asks for through tools: the answer list, per-candidate search, step reads, and summaries |
+| Agentic Aggregation (ours) | only what it asks for through tools: the answer list, per-candidate search, step reads, and summaries |
+
+Agentic Aggregation splits each candidate into steps of at most 1,024 tokens and
+gives the aggregator five tools: `get_answer` lists the candidates' answers,
+`search_solution` searches one candidate with ROUGE-L, `get_reasoning_step`
+reads up to five consecutive steps, `get_solution_summary` summarizes one
+candidate in a separate call, and `finish` submits a solution with a boxed
+answer.
 
 Baselines are Pass@1, Pass@8 (the oracle for answer selection), and majority
 voting. The models are Qwen3.5-2B, 4B, and 9B in thinking mode, and the
@@ -24,11 +32,11 @@ benchmarks are AIME 2024–2026 and HMMT February 2024–2025, 150 problems in a
 |---|---|
 | `aggmath/rollout/` | candidate sampling against an OpenAI-compatible server |
 | `aggmath/evaluation/` | Math-Verify grading and Pass@k |
-| `aggmath/aggregation/` | the agentic aggregator for math, built on `vendor/aggagent_core` |
+| `aggmath/aggregation/` | Agentic Aggregation: runs the aggregator over the saved candidates |
 | `baselines/prompted_aggregation/` | ICA with the AggLM prompt |
 | `baselines/single_shot_rag/` | passage corpus, BM25 and embedding retrieval, single-shot RAG |
 | `baselines/majority_voting/` | majority voting over Math-Verify-equivalent answers |
-| `vendor/aggagent_core/` | AggAgent's aggregation core (Apache-2.0), adapted to math |
+| `vendor/aggagent_core/` | the agent loop and tools of Agentic Aggregation, built on AggAgent's open-source code (Apache-2.0) |
 | `scripts/` | experiment entry points (`run_*.sh`) and the vLLM launcher |
 | `analysis/` | the tables and statistics in the report |
 | `slurm/` | the job scripts we used on the UMass Unity cluster |
@@ -127,7 +135,7 @@ python -m baselines.single_shot_rag.embed_passages --stage corpus --inputs outpu
 python -m baselines.single_shot_rag.embed_passages --stage embed --inputs outputs/math_rollout/qwen3.5-9b
 ```
 
-**7. Agentic retrieval-based aggregation.** The 2B and 4B scripts work the same
+**7. Agentic Aggregation.** The 2B and 4B scripts work the same
 way.
 
 ```bash
@@ -173,7 +181,7 @@ fifteen rollout jobs. The account, partitions, and paths in `slurm/*.sbatch` and
 
 ## Acknowledgments and license
 
-- `vendor/aggagent_core/` comes from
+- The agent loop in `vendor/aggagent_core/` builds on the open-source code of
   [AggAgent](https://github.com/princeton-pli/AggAgent) (commit `66b697d`,
   Apache-2.0). `vendor/aggagent_core/UPSTREAM.md` lists our changes.
 - ICA uses the prompt template of AggLM (Zhao et al., 2025).
